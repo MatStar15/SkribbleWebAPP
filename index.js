@@ -70,6 +70,7 @@ function canvas_read_touch(canvas, e) {
 function on_canvas_touch_start(e) {
     canvas_read_touch(canvas, e);
     canvas.tc_md = true;
+    console.log(canvas.tc_md);
 }
 
 function on_canvas_touch_end(/*e*/) {
@@ -84,6 +85,8 @@ function on_canvas_touch_move(e) {
         ctx.moveTo(canvas.tc_x1, canvas.tc_y1);
         ctx.lineTo(canvas.tc_x2, canvas.tc_y2);
         ctx.stroke();
+
+        console.log("Moving");
     }
 }
 
