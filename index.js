@@ -41,6 +41,7 @@ function canvas_read_mouse(canvas, e) {
 function on_canvas_mouse_down(e) {
     canvas_read_mouse(canvas, e);
     canvas.tc_md = true;
+    console.log(canvas.tc_md);
 }
 
 function on_canvas_mouse_up(/*e*/) {
