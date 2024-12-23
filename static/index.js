@@ -30,6 +30,33 @@ toolbar.addEventListener('change', e => {
 
 });
 
+async function send_canvas_to_server() {
+    let canvas_url = canvas.toDataURL('image/png'); // Specify the image format (PNG in this case)
+
+    let formData = new FormData();
+    formData.append('canvas_data', canvas_url);
+
+    fetch('/save', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+});
+
+}
+
+toolbar.addEventListener('click', e => {
+    if (e.target.id === 'save') {
+        console.log('saving'); // TODO: remove log
+        send_canvas_to_server();
+    }
+})
+
 function canvas_read_mouse(canvas, e) {
     let canvasRect = canvas.getBoundingClientRect();
     canvas.tc_x1 = canvas.tc_x2;
@@ -41,7 +68,6 @@ function canvas_read_mouse(canvas, e) {
 function on_canvas_mouse_down(e) {
     canvas_read_mouse(canvas, e);
     canvas.tc_md = true;
-    console.log(canvas.tc_md);
 }
 
 function on_canvas_mouse_up(/*e*/) {
@@ -71,7 +97,6 @@ function canvas_read_touch(canvas, e) {
 function on_canvas_touch_start(e) {
     canvas_read_touch(canvas, e);
     canvas.tc_md = true;
-    console.log(canvas.tc_md);
 }
 
 function on_canvas_touch_end(/*e*/) {
@@ -86,8 +111,6 @@ function on_canvas_touch_move(e) {
         ctx.moveTo(canvas.tc_x1, canvas.tc_y1);
         ctx.lineTo(canvas.tc_x2, canvas.tc_y2);
         ctx.stroke();
-
-        console.log("Moving");
     }
 }
 
