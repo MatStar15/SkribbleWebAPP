@@ -1,4 +1,5 @@
 .venv/
+.idae/
 
 *.pyc
 __pycache__/
